@@ -4,13 +4,6 @@ import {
   DrawingUtils,
   FilesetResolver,
 } from "@mediapipe/tasks-vision";
-import close_hand from "./emoji/close-removebg-preview.png";
-import finger_up from "./emoji/fingerup-removebg-preview.png";
-import open_plum from "./emoji/openplum-removebg-preview.png";
-import rock from "./emoji/rock-removebg-preview.png";
-import thumb_down from "./emoji/thumbdown-removebg-preview.png";
-import thumb_up from "./emoji/thumbsup-removebg-preview.png";
-import victory from "./emoji/victory-removebg-preview.png";
 
 const App = () => {
   const [gestureRecognizer, setGestureRecognizer] = useState(null);
@@ -23,16 +16,7 @@ const App = () => {
   const videoWidth = "480px";
   let lastVideoTime = -1;
   let runningMode = "IMAGE";
-  const [emoji, setEmoji] = useState(null);
-  const gestureToEmojiMap = {
-    Victory: victory,
-    Thumb_Up: thumb_up,
-    Thumb_Down: thumb_down,
-    Open_Palm: open_plum,
-    Pointing_Up: finger_up,
-    Closed_Fist: close_hand,
-    ILoveYou: rock,
-  };
+
   useEffect(() => {
     const initializeGestureRecognizer = async () => {
       const vision = await FilesetResolver.forVisionTasks(
@@ -124,8 +108,6 @@ const App = () => {
         const categoryName = results.gestures[0][0].categoryName;
         const categoryScore = (results.gestures[0][0].score * 100).toFixed(2);
         const handedness = results.handednesses[0][0].displayName;
-        const getEmoji = gestureToEmojiMap[categoryName] || null;
-        setEmoji(getEmoji);
         outputRef.current.innerText = `GestureRecognizer: ${categoryName}\nConfidence: ${categoryScore} %\nHandedness: ${handedness}`;
       } else {
         outputRef.current.style.display = "none";
@@ -140,10 +122,14 @@ const App = () => {
   return (
     <div>
       <section>
-        <p>the model can understand 🤘✊👋☝️👎👍✌️ hand gestures</p>
+        <p>
+          the model can understand 🤘✊👋☝️👎👍✌️ hand gestures 
+        </p>
         {hasGetUserMedia() ? (
           <div>
-            <button onClick={enableCam}>{buttonText}</button>
+            <button onClick={enableCam}>
+              {buttonText}
+            </button>
             <div style={{ position: "relative" }}>
               <video ref={videoRef} autoPlay playsInline></video>
               <canvas
@@ -152,25 +138,6 @@ const App = () => {
                 width="1280"
                 height="720"
               ></canvas>
-
-           /*   {emoji !== null ? (
-                <img
-                  src={gestureToEmojiMap[emoji]}
-                  alt=""
-                  style={{
-                    position: "absolute",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    left: 400,
-                    bottom: 500,
-                    right: 0,
-                    textAlign: "center",
-                    height: 100,
-                  }}
-                />
-              ) : (
-                ""
-              )}  */
               <p ref={outputRef} className="output"></p>
             </div>
           </div>
