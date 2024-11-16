@@ -10,10 +10,11 @@ const App = () => {
   const [webcamRunning, setWebcamRunning] = useState(false);
   const [buttonText, setButtonText] = useState("ENABLE WEBCAM");
   
-  const gestureToEmojiMap = { "Victory": "✌️", "Thumb_Up": "👍", "Thumb_Down": "👎", "Open_Palm": "👋", "Pointing_Up": "☝️", "Closed_Fist": "✊", "ILoveYou": "🤟", }; 
+  const gestureToEmojiMap = { "Victory": "✌️", "Thumb_Up": "👍", "Thumb_Down": "👎", "Open_Palm": "👋", "Pointing_Up": "☝️", "Closed_Fist": "✊", "ILoveYou": "🤟", "None": "🤷" }; 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const outputRef = useRef(null);
+  const emojiRef = useRef(null);
   const videoHeight = "360px";
   const videoWidth = "480px";
   let lastVideoTime = -1;
@@ -110,8 +111,9 @@ const App = () => {
         const categoryName = results.gestures[0][0].categoryName;
         const categoryScore = (results.gestures[0][0].score * 100).toFixed(2);
         const handedness = results.handednesses[0][0].displayName;
-        const emoji = gestureToEmojiMap[categoryName] || '🤷';
-        outputRef.current.innerText = `GestureRecognizer: ${categoryName} ${emoji}\nConfidence: ${categoryScore} %\nHandedness: ${handedness}`;
+        const emoji = gestureToEmojiMap[categoryName];
+        emojiRef.current.innerText = emoji;
+        outputRef.current.innerText = `GestureRecognizer: ${categoryName}\nConfidence: ${categoryScore} %\nHandedness: ${handedness}`;
     
        
       } else {
@@ -143,7 +145,7 @@ const App = () => {
                 width="1280"
                 height="720"
               ></canvas>
-               
+               <h1 ref={emojiRef} className="emoji"></h1>
               <p ref={outputRef} className="output"></p>
             </div>
           </div>
