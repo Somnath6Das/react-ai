@@ -139,13 +139,14 @@ const App = () => {
             </button>
             <div style={{ position: "relative" }}>
               <video ref={videoRef} autoPlay playsInline></video>
+             <h1 ref={emojiRef} className="emoji"></h1>
               <canvas
                 ref={canvasRef}
                 className="output_canvas"
                 width="1280"
                 height="720"
               ></canvas>
-               <h1 ref={emojiRef} className="emoji"></h1>
+               
               <p ref={outputRef} className="output"></p>
             </div>
           </div>
