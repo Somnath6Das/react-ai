@@ -153,7 +153,7 @@ const App = () => {
                 height="720"
               ></canvas>
 
-              {emoji !== null ? (
+           /*   {emoji !== null ? (
                 <img
                   src={gestureToEmojiMap[emoji]}
                   alt=""
@@ -170,7 +170,7 @@ const App = () => {
                 />
               ) : (
                 ""
-              )}
+              )}  */
               <p ref={outputRef} className="output"></p>
             </div>
           </div>
