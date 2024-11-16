@@ -9,6 +9,8 @@ const App = () => {
   const [gestureRecognizer, setGestureRecognizer] = useState(null);
   const [webcamRunning, setWebcamRunning] = useState(false);
   const [buttonText, setButtonText] = useState("ENABLE WEBCAM");
+  const [emoji, setEmoji] = useState("Wait for model load 🕒");
+  const gestureToEmojiMap = { Victory: ✌️, Thumb_Up: 👍, Thumb_Down: 👎, Open_Palm: 👋, Pointing_Up: ☝️, Closed_Fist: ✊, ILoveYou: 🤟, }; 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const outputRef = useRef(null);
@@ -109,6 +111,8 @@ const App = () => {
         const categoryScore = (results.gestures[0][0].score * 100).toFixed(2);
         const handedness = results.handednesses[0][0].displayName;
         outputRef.current.innerText = `GestureRecognizer: ${categoryName}\nConfidence: ${categoryScore} %\nHandedness: ${handedness}`;
+     const getEmoji = gestureToEmojiMap[categoryName];
+        setEmoji(getEmoji);
       } else {
         outputRef.current.style.display = "none";
       }
@@ -138,6 +142,7 @@ const App = () => {
                 width="1280"
                 height="720"
               ></canvas>
+                <h2>{gestureToEmojiMap[emoji]}</h2>
               <p ref={outputRef} className="output"></p>
             </div>
           </div>
