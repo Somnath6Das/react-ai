@@ -110,7 +110,7 @@ const App = () => {
         const categoryName = results.gestures[0][0].categoryName;
         const categoryScore = (results.gestures[0][0].score * 100).toFixed(2);
         const handedness = results.handednesses[0][0].displayName;
-         const emoji = gestureToEmojiMap[categoryName];
+        const emoji = gestureToEmojiMap[categoryName] || '🤷';
         outputRef.current.innerText = `GestureRecognizer: ${categoryName} ${emoji}\nConfidence: ${categoryScore} %\nHandedness: ${handedness}`;
     
        
